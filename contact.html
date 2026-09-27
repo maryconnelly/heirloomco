@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" class="dark-ok">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact · Heirloom Co.</title>
+  <meta name="description" content="Get in touch with Heirloom Co. in Omaha about an item or an event.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Figtree:wght@400;500;600&family=Nanum+Pen+Script&display=swap">
+  <link rel="stylesheet" href="css/heirloom.css">
+</head>
+<body class="template-contact">
+  <a class="skip" href="#MainContent">Skip to content</a>
+
+  <header class="site">
+    <div class="wrap">
+      <a class="brand" href="index.html" aria-label="Heirloom Co. home">
+        <img class="logo brand-img" src="images/logo.jpg" alt="" width="850" height="850">
+        <span>Heirloom Co.</span>
+      </a>
+      <nav class="links" aria-label="Main">
+        <a href="shop.html">Shop</a>
+        <a href="events.html">Events &amp; Pop-ups</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="MainContent">
+    <section class="page-head">
+      <div class="wrap">
+        <span class="caps">Contact</span>
+        <h1>Say <em>hello.</em></h1>
+        <p class="lede">Questions about a piece, an event, or anything else? Send a note and we'll get back to you.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="wrap contact">
+        <!-- Not connected to anything yet. Shopify's built-in contact form can take this over later. -->
+        <form class="form" data-contact>
+          <div class="row">
+            <label><span>Name</span><input type="text" name="name" autocomplete="name" required></label>
+            <label><span>Email</span><input type="email" name="email" autocomplete="email" required></label>
+          </div>
+          <label>
+            <span>About</span>
+            <select name="topic">
+              <option>A piece in the shop</option>
+              <option>Events &amp; pop-ups</option>
+              <option>Something else</option>
+            </select>
+          </label>
+          <label><span>Message</span><textarea name="message" required></textarea></label>
+          <button class="btn solid" type="submit">Send message</button>
+          <p class="form-status" role="status" hidden></p>
+        </form>
+
+        <aside>
+          <div class="sec-head tight">
+            <div>
+              <span class="caps">Find us in person</span>
+            </div>
+          </div>
+          <p class="muted">Heirloom Co. is an online shop based in Omaha, Nebraska. To see our finds in person, catch us at a market or pop-up around town.</p>
+          <div class="actions">
+            <a class="btn line" href="events.html">Upcoming events</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <img class="logo foot-logo" src="images/logo.jpg" alt="" width="850" height="850">
+      <div class="foot-links">
+        <a href="shop.html">Shop</a>
+        <a href="events.html">Events &amp; Pop-ups</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <p>© 2026 Heirloom Co. · Curated vintage &amp; modern goods with heirloom quality · Omaha, Nebraska</p>
+    </div>
+  </footer>
+
+  <script src="js/heirloom.js" defer></script>
+</body>
+</html>
