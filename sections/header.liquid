@@ -1,0 +1,25 @@
+{%- if section.settings.announcement != blank -%}
+  <div class="draft">{{ section.settings.announcement }}</div>
+{%- endif -%}
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }} home">
+      {% render 'logo', class: 'logo brand-img', alt: '' %}
+      <span>{{ shop.name }}</span>
+    </a>
+    <nav class="links" aria-label="Main">
+      {% render 'nav-links', menu: section.settings.menu %}
+      <a href="{{ routes.cart_url }}" class="cart-link">Bag{% if cart.item_count > 0 %} <span class="count">{{ cart.item_count }}</span>{% endif %}</a>
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "text", "id": "announcement", "label": "Announcement bar", "info": "Leave blank to hide." },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu", "info": "If the menu is empty, links to Shop, Events & Pop-ups and Contact are shown." }
+  ]
+}
+{% endschema %}

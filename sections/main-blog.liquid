@@ -1,0 +1,27 @@
+<section class="block first">
+  <div class="wrap narrow">
+    <span class="caps accent">Journal</span>
+    <h1 class="h2">{{ blog.title }}</h1>
+    {%- paginate blog.articles by 10 -%}
+      <ul class="articles">
+        {%- for article in blog.articles -%}
+          <li>
+            <span class="muted small">{{ article.published_at | date: '%B %-d, %Y' }}</span>
+            <a class="name" href="{{ article.url }}">{{ article.title }}</a>
+            {%- if article.excerpt != blank -%}<div class="muted">{{ article.excerpt | strip_html | truncatewords: 30 }}</div>{%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- if paginate.pages > 1 -%}
+        <nav class="pager" aria-label="Pages">
+          {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">← Newer</a>{%- endif -%}
+          {%- if paginate.next -%}<a href="{{ paginate.next.url }}">Older →</a>{%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Blog", "settings": [] }
+{% endschema %}

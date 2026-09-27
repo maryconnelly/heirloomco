@@ -1,0 +1,65 @@
+<section class="page-head">
+  <div class="wrap">
+    {%- if section.settings.eyebrow != blank -%}<span class="caps">{{ section.settings.eyebrow }}</span>{%- endif -%}
+    <h1>{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <div class="lede rte">{{ collection.description }}</div>
+    {%- elsif section.settings.text != blank -%}
+      <p class="lede">{{ section.settings.text }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+<section class="block racks">
+  <div class="wrap">
+    {%- paginate collection.products by section.settings.per_page -%}
+      {%- if section.settings.show_filters and collection.all_types.size > 1 -%}
+        <div class="sec-head tight">
+          <div class="filters" role="group" aria-label="Filter by category" data-filters>
+            <button type="button" data-filter="all" aria-pressed="true">All</button>
+            {%- for type in collection.all_types -%}
+              {%- if type != blank -%}
+                <button type="button" data-filter="{{ type | handleize }}" aria-pressed="false">{{ type }}</button>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if collection.products.size > 0 -%}
+        <div class="items">
+          {%- for product in collection.products -%}
+            {% render 'item-card', product: product %}
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <p class="muted">Nothing here right now. New finds are added every week, so check back soon.</p>
+      {%- endif -%}
+
+      {%- if paginate.pages > 1 -%}
+        <nav class="pager" aria-label="Pages">
+          {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">← Previous</a>{%- endif -%}
+          <span>Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
+          {%- if paginate.next -%}<a href="{{ paginate.next.url }}">Next →</a>{%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+
+    {%- if section.settings.foot != blank -%}
+      <p class="foot">{{ section.settings.foot }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "Shop" },
+    { "type": "textarea", "id": "text", "label": "Text", "info": "Shown when the collection has no description.", "default": "Every piece is one of a kind. New finds are added every week, so check back often." },
+    { "type": "checkbox", "id": "show_filters", "label": "Show category filter buttons", "info": "Buttons come from product types, e.g. Clothing and Home.", "default": true },
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 },
+    { "type": "richtext", "id": "foot", "label": "Note under the products", "default": "<p>Have a question about a piece? <a href=\"/pages/contact\">Get in touch</a>.</p>" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,62 @@
+{%- assign current = product.selected_or_first_available_variant -%}
+<section class="product wrap">
+  <div class="product-media">
+    {%- if product.media.size > 0 -%}
+      {%- for media in product.media -%}
+        {%- if media.media_type == 'image' -%}
+          {%- if forloop.first -%}{%- assign loading = 'eager' -%}{%- else -%}{%- assign loading = 'lazy' -%}{%- endif -%}
+          {%- assign alt = media.alt | default: product.title -%}
+          <figure>
+            {{ media | image_url: width: 1400 | image_tag: loading: loading, widths: '600, 1000, 1400', sizes: '(max-width: 860px) 92vw, 600px', alt: alt }}
+          </figure>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      <figure class="media-empty">{% render 'logo', class: 'logo', alt: '' %}</figure>
+    {%- endif -%}
+  </div>
+
+  <div class="product-info">
+    {%- if product.type != blank -%}<span class="caps kind">{{ product.type }}</span>{%- endif -%}
+    <h1>{{ product.title }}</h1>
+
+    <div class="price-tag">
+      {%- if current.compare_at_price > current.price -%}<s>{{ current.compare_at_price | money_without_trailing_zeros }}</s>{%- endif -%}
+      <span>{{ current.price | money_without_trailing_zeros }}</span>
+    </div>
+
+    {%- form 'product', product, class: 'buy' -%}
+      {%- if product.has_only_default_variant -%}
+        <input type="hidden" name="id" value="{{ current.id }}">
+      {%- else -%}
+        <label class="caps" for="variant-{{ section.id }}">Options</label>
+        <select id="variant-{{ section.id }}" name="id">
+          {%- for variant in product.variants -%}
+            <option value="{{ variant.id }}"{% if variant == current %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>
+              {{ variant.title }} · {{ variant.price | money_without_trailing_zeros }}{% unless variant.available %} (sold){% endunless %}
+            </option>
+          {%- endfor -%}
+        </select>
+      {%- endif -%}
+      <input type="hidden" name="quantity" value="1">
+      {%- if product.available -%}
+        <button type="submit" class="btn solid">Add to bag</button>
+      {%- else -%}
+        <button type="button" class="btn line" disabled>Sold</button>
+      {%- endif -%}
+    {%- endform -%}
+
+    {%- if section.settings.note != blank -%}<p class="one-of">{{ section.settings.note }}</p>{%- endif -%}
+
+    <div class="rte">{{ product.description }}</div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    { "type": "text", "id": "note", "label": "Note under the button", "default": "Every piece is one of a kind. Once it's in someone's bag, it's gone." }
+  ]
+}
+{% endschema %}

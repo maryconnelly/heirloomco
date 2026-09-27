@@ -1,0 +1,29 @@
+<section class="block first">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="caps">Shop</span>
+        <h1 class="h2">All collections</h1>
+      </div>
+    </div>
+    <div class="coll-grid">
+      {%- for collection in collections -%}
+        <a class="coll-card" href="{{ collection.url }}">
+          <span class="coll-img">
+            {%- if collection.featured_image -%}
+              {{ collection.featured_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '350, 700', sizes: '(max-width: 600px) 90vw, 360px' }}
+            {%- else -%}
+              {% render 'logo', class: 'logo', alt: '' %}
+            {%- endif -%}
+          </span>
+          <span class="caps">{{ collection.title }}</span>
+          <span class="muted small">{{ collection.products_count }} pieces</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Collections list", "settings": [] }
+{% endschema %}

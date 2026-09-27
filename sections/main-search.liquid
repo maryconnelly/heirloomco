@@ -1,0 +1,43 @@
+<section class="block first racks">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="caps">Search</span>
+        <h1 class="h2">{% if search.performed %}Results for “{{ search.terms | escape }}”{% else %}Find something{% endif %}</h1>
+      </div>
+      <form action="{{ routes.search_url }}" method="get" class="search-form" role="search">
+        <label class="visually-hidden" for="q">Search the shop</label>
+        <input id="q" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Wool coat, quilt, boots…">
+        <button type="submit" class="btn solid">Search</button>
+      </form>
+    </div>
+    {%- if search.performed -%}
+      {%- paginate search.results by 24 -%}
+        {%- if search.results_count > 0 -%}
+          <div class="items">
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                {% render 'item-card', product: item %}
+              {%- else -%}
+                <a class="result-link" href="{{ item.url }}">{{ item.title }}</a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- else -%}
+          <p class="muted">No matches. Try a broader word, like “jacket” or “quilt”.</p>
+        {%- endif -%}
+        {%- if paginate.pages > 1 -%}
+          <nav class="pager" aria-label="Pages">
+            {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">← Previous</a>{%- endif -%}
+            <span>Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
+            {%- if paginate.next -%}<a href="{{ paginate.next.url }}">Next →</a>{%- endif -%}
+          </nav>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Search", "settings": [] }
+{% endschema %}

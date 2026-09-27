@@ -1,0 +1,58 @@
+<section class="block" id="{{ section.settings.anchor | default: 'carry' }}">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="caps">{{ section.settings.eyebrow }}</span>
+        <h2>{{ section.settings.heading }}</h2>
+      </div>
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="carry">
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>
+          <h3><svg viewBox="0 0 120 70" aria-hidden="true" data-leaf></svg>{{ block.settings.title }}</h3>
+          {%- if block.settings.note != blank -%}<p class="note">{{ block.settings.note }}</p>{%- endif -%}
+          <ul>
+            {%- assign lines = block.settings.items | newline_to_br | split: '<br />' -%}
+            {%- for line in lines -%}
+              {%- assign parts = line | split: '|' -%}
+              {%- assign label = parts[0] | strip -%}
+              {%- if label != blank -%}
+                {%- if block.settings.link != blank -%}
+                  <li><a href="{{ block.settings.link }}">{{ label }}</a> <span>{{ parts[1] | strip }}</span></li>
+                {%- else -%}
+                  <li>{{ label }} <span>{{ parts[1] | strip }}</span></li>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "What we carry",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Section ID (for #links)", "default": "carry" },
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "What we carry" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "For your closet and your home." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every piece in our collection is chosen with sustainability in mind. We look for quality, pure-fiber fabrics and pieces in the condition to last for years to come." }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Category list",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Clothing" },
+        { "type": "text", "id": "note", "label": "Note" },
+        { "type": "textarea", "id": "items", "label": "Items", "info": "One per line. Use | to add a detail, e.g. Denim | Vintage & modern cuts" },
+        { "type": "url", "id": "link", "label": "Link", "info": "Optional. Usually a collection." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "What we carry" }]
+}
+{% endschema %}

@@ -1,0 +1,22 @@
+<footer class="site">
+  <div class="wrap">
+    {% render 'logo', class: 'logo foot-logo', alt: '' %}
+    <div class="foot-links">
+      {% render 'nav-links', menu: section.settings.menu %}
+      {%- if settings.instagram_url != blank -%}
+        <a href="{{ settings.instagram_url }}" target="_blank" rel="noopener">Instagram</a>
+      {%- endif -%}
+    </div>
+    <p>© {{ 'now' | date: '%Y' }} {{ shop.name }} · {{ section.settings.tagline }}</p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Footer menu", "default": "footer" },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Curated vintage & modern goods with heirloom quality · Omaha, Nebraska" }
+  ]
+}
+{% endschema %}

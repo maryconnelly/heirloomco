@@ -1,0 +1,73 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Heirloom",
+    "theme_version": "2.0.0",
+    "theme_author": "Heirloom Co.",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_paper",
+        "label": "Background",
+        "default": "#F8F8F4"
+      },
+      {
+        "type": "color",
+        "id": "color_paper_2",
+        "label": "Alternate background",
+        "default": "#EFEFE8"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Text",
+        "default": "#1D1E1A"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent (buttons, links, leaf green)",
+        "default": "#56654A"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_dark_mode",
+        "label": "Follow the visitor's dark mode setting",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo",
+        "info": "Optional. If blank, the Heirloom Co. seal included with the theme is used."
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Browser tab icon. Square, at least 64 × 64 px."
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      {
+        "type": "text",
+        "id": "instagram_url",
+        "label": "Instagram link",
+        "info": "e.g. https://instagram.com/yourshop"
+      }
+    ]
+  }
+]

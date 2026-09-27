@@ -1,159 +1,158 @@
-# Heirloom Co.
+# Heirloom Co. — Shopify theme
 
 *Curated vintage & modern goods with heirloom quality.*
 
-Website for Heirloom Co., a small Omaha, Nebraska business selling curated vintage and modern clothing, accessories and home goods. The shop is online-only and sells in person at markets and pop-up events around Omaha.
+This is the **`shopify` branch**: the Heirloom Co. site packaged as a Shopify Online Store 2.0 theme, ready to set up on the shop's Shopify account.
 
-This repository holds a plain HTML, CSS and JavaScript version of the site. It needs no build step or server, which makes it easy to edit and preview while the design and wording are being worked out. It's written with a later move to a **Shopify** theme in mind (see [Moving to Shopify](#moving-to-shopify)).
+The plain HTML version of the site lives on the **`main`** branch. That's the place to try out design and wording changes locally; bring finished changes over to this branch when they're ready for the store (see [Keeping the two branches in step](#keeping-the-two-branches-in-step)).
 
 ---
 
-## Pages
+## What's in the theme
 
-| Page | File | What's on it |
+| Page on the store | Shopify template | Sections |
 |---|---|---|
-| Home | `index.html` | Hero with the motto and logo, **What we carry** (Clothing and Home Goods lists), **New this week** (6 item cards), and **Events & Pop-ups** (upcoming events). |
-| Shop | `shop.html` | 12 item cards with **All / Clothing / Home** filter buttons. |
-| Events & Pop-ups | `events.html` | Upcoming events list and a **Want us at your event?** section. |
-| Contact | `contact.html` | Contact form (name, email, topic, message) and a note about finding the shop at pop-ups. |
+| Home | `templates/index.json` | Hero, What we carry, New arrivals, Events |
+| Shop (any collection) | `templates/collection.json` | Collection (item cards + category filter) |
+| Product | `templates/product.json` | Product |
+| Events & Pop-ups | `templates/page.events.json` | Page heading, Events, Call to action |
+| Contact | `templates/page.contact.json` | Contact form (Shopify's built-in contact form) |
+| Cart, search, 404, blog, article, collections list, password | `templates/*.json` | One `main-*` section each |
 
-Every page shares the same header (logo, shop name, Shop / Events & Pop-ups / Contact) and footer (logo, links, motto and location).
+Every section's text can be edited in the Shopify theme editor (**Online Store → Themes → Customize**) without touching code.
 
-## Project structure
+## Theme structure
 
 ```
-heirloomco/
-├── index.html        Home page
-├── shop.html         Shop page
-├── events.html       Events & Pop-ups page
-├── contact.html      Contact page
-├── css/
-│   └── heirloom.css  All styles for every page
-├── js/
-│   └── heirloom.js   Leaf icons, shop filter, contact form message
-├── images/
-│   └── logo.jpg      Heirloom Co. seal logo
-├── .gitignore
-└── README.md
+heirloomco/  (shopify branch)
+├── assets/
+│   ├── heirloom.css            All styles
+│   ├── heirloom.js             Leaf icons + shop category filter
+│   └── logo.jpg                Heirloom Co. seal (used when no logo is set in theme settings)
+├── config/
+│   ├── settings_schema.json    Theme settings: colors, logo, favicon, Instagram
+│   └── settings_data.json      Saved setting values
+├── layout/
+│   ├── theme.liquid            Page shell: fonts, colors, header, footer
+│   └── password.liquid         "Opening soon" page shell
+├── locales/en.default.json
+├── sections/
+│   ├── header.liquid           Logo, shop name, menu, bag
+│   ├── footer.liquid           Logo, menu, Instagram, tagline
+│   ├── hero.liquid             Home: motto, text, button, logo
+│   ├── carry.liquid            Home: What we carry (Clothing / Home Goods lists)
+│   ├── new-arrivals.liquid     Home: item cards from a chosen collection
+│   ├── events.liquid           Home + Events page: upcoming events list
+│   ├── page-heading.liquid     Big heading at the top of a page
+│   ├── call-to-action.liquid   "Want us at your event?" band
+│   ├── main-contact.liquid     Contact page form
+│   ├── main-collection.liquid  Shop page
+│   └── main-*.liquid           Product, cart, search, 404, blog, article, page, password
+├── snippets/
+│   ├── logo.liquid             Logo image (theme setting or assets/logo.jpg)
+│   ├── nav-links.liquid        Menu links, with default links if the menu is empty
+│   ├── item-card.liquid        Product card: photo, type, name, description, price
+│   └── item-card-placeholder.liquid  Placeholder card before products exist
+└── templates/                  JSON templates listed above
 ```
 
-## Previewing the site
+## Setting up the Shopify store
 
-**Quickest:** double-click `index.html` (or run `open index.html`) to open it in your browser. Refresh the page after saving a change.
+### 1. Add the theme
 
-**Live reload:** to have the browser refresh by itself whenever a file is saved, run this from the project folder:
+**Option A: Shopify CLI (recommended while still making changes)**
+
+Requires [Node.js](https://nodejs.org) and the Shopify CLI (`npm install -g @shopify/cli`). From this folder, on the `shopify` branch:
 
 ```sh
-npx -y live-server --port=8000
+# Preview on the store without publishing (opens a local preview link)
+shopify theme dev --store heirloomcoshop.myshopify.com
+
+# Upload as a new, unpublished theme
+shopify theme push --unpublished --store heirloomcoshop.myshopify.com
 ```
 
-This needs [Node.js](https://nodejs.org). It opens the site at `http://127.0.0.1:8000`. Press `Ctrl+C` in the terminal to stop it.
+The first command opens a browser window to log in to Shopify.
 
-## Making common changes
+**Option B: upload a zip**
 
-### Text
-
-All wording is written directly in the HTML files. Open the page, find the text and edit it. Headings with a green italic ending wrap that part in `<em>`, for example:
-
-```html
-<h1>Curated vintage &amp; modern goods with <em>heirloom quality.</em></h1>
+```sh
+shopify theme package
 ```
 
-Use `&amp;` for an `&` inside HTML.
+Or zip the `assets`, `config`, `layout`, `locales`, `sections`, `snippets` and `templates` folders together. Then in Shopify admin go to **Online Store → Themes → Add theme → Upload zip file**.
 
-### Item cards (Home and Shop)
+### 2. Create the pages
 
-Each item is one `<article class="item">` block:
+In **Online Store → Pages**, create:
 
-```html
-<article class="item" data-kind="clothing">
-  <div class="item-img"><span class="caps">Photo</span></div>
-  <span class="caps kind">Clothing</span>
-  <h3 class="name">Item name</h3>
-  <p class="meta">Short description of the piece</p>
-  <p class="price">$00</p>
-</article>
-```
-
-- **Photo:** put the image in `images/`, then replace the `<span class="caps">Photo</span>` with an image tag, e.g. `<img src="images/wool-coat.jpg" alt="Olive wool chore coat">`. Photos are shown as squares and cropped to fit, so square photos work best.
-- **Category:** `data-kind` must be `clothing` or `home` so the Shop page filter buttons work. Change the visible label (`Clothing` / `Home`) to match.
-- **Name, description, price:** replace the placeholder text.
-
-The homepage shows 6 cards and the Shop page shows 12. Add or remove whole `<article>` blocks to change that.
-
-### Events
-
-Each event is one `<li>` inside `<ul class="events">`:
-
-```html
-<li>
-  <time class="date" datetime="2026-10-10"><span class="caps">Oct</span><b>10</b></time>
-  <div>
-    <h3>Fall Vintage Market</h3>
-    <p class="muted">Saturday · 9:00 – 3:00 · Venue name, Omaha</p>
-    <p>Short description of what we're bringing.</p>
-  </div>
-</li>
-```
-
-Set `datetime` to the full date (year-month-day), and the month and day inside the date box.
-
-> **Note:** the events list appears in **two** places: `events.html` and the bottom of `index.html`. Update both when events change.
-
-### Colors
-
-Brand colors are defined at the top of `css/heirloom.css`:
-
-| Name | Value | Used for |
+| Page title | Theme template | Resulting address |
 |---|---|---|
-| `--paper` | `#F8F8F4` | Page background |
-| `--paper-2` | `#EFEFE8` | Alternate section background (New this week, pop-up section) |
-| `--ink` | `#1D1E1A` | Main text |
-| `--sage` | `#56654A` | Dark gray-green accent: buttons, link highlights, small headings, italic heading endings |
+| Events & Pop-ups | `page.events` | `/pages/events` |
+| Contact | `page.contact` | `/pages/contact` |
 
-Lighter and darker shades (`--ink-soft`, `--rule`, `--sage-soft`, `--sage-deep`) are mixed from these automatically, so changing the four main colors updates the whole site.
+The URL handles must be `events` and `contact` for the built-in links to work. Page body text isn't used on these two pages; their content comes from the sections.
 
-**Dark mode:** when a visitor's device is set to dark mode, the site switches to a dark palette (defined in the `@media (prefers-color-scheme: dark)` block just below). To turn this off, remove `class="dark-ok"` from the `<html>` tag on each page.
+### 3. Set up products
 
-### Fonts
+- Add products with a **photo**, **title**, **description** (the first dozen words show on the card) and **price**.
+- Set each product's **Product type** to `Clothing` or `Home`. The type is the small green label on each card and drives the **All / Clothing / Home** filter buttons on the Shop page.
+- Since every piece is one of a kind, set inventory to 1. Sold-out products show "Sold" and fade out.
+- Create a collection (e.g. **New arrivals**), then in the theme editor pick it in the home page's **New arrivals** section. Until a collection with products is chosen, placeholder cards are shown.
 
-Loaded from Google Fonts in each page's `<head>`:
+### 4. Set up navigation
 
-| Font | Used for |
-|---|---|
-| **Newsreader** | Large headings and item names |
-| **Marcellus** | Small all-caps labels, buttons, shop name |
-| **Figtree** | Body text |
+In **Online Store → Navigation**:
 
-### Logo
+- **Main menu:** Shop → `/collections/all`, Events & Pop-ups → the Events page, Contact → the Contact page.
+- **Footer menu:** the same links, or whatever you'd like.
 
-The logo is `images/logo.jpg` (black line art on white). It's used in the header, the footer and the homepage hero. CSS blends away the white background so it sits on the page color, and inverts it to light lines in dark mode. To replace it, save a new file over `images/logo.jpg`, ideally square and tightly cropped.
+If a menu is left empty, the header and footer fall back to Shop, Events & Pop-ups and Contact automatically.
 
-## Still to do
+### 5. Theme settings
 
-Placeholder content that needs real information before launch:
+In the theme editor, open **Theme settings** (the gear icon):
 
-- [ ] **Item cards:** photos, names, descriptions and prices on the Home and Shop pages.
-- [ ] **Events:** the three events on the Events page and homepage are samples with made-up dates and "Venue name, Omaha".
-- [ ] **What we carry lists:** the Home Goods rows (Decor & vessels, Tableware and their examples) were drafted and should be checked against what the shop actually carries.
-- [ ] **Contact form:** it isn't connected to anything yet. Submitting shows a message saying the form isn't connected. It will be wired up during the Shopify move, or through a form service in the meantime.
-- [ ] **Instagram / social links:** none yet.
-- [ ] **Favicon** (browser tab icon).
-- [ ] **Spelling consistency:** "homegoods" in the homepage paragraph vs. "Home Goods" elsewhere.
+- **Colors:** background, alternate background, text and accent (defaults match the site).
+- **Logo:** optional. Leave blank to use the included seal, or upload a new one. Also set the **favicon** (browser tab icon) here.
+- **Social:** Instagram link, which adds an Instagram link to the footer.
 
-## Moving to Shopify
+### 6. Events
 
-The site began as a Shopify Online Store 2.0 theme and was turned into static pages so it could be designed and edited locally. When it's ready to go live on Shopify:
+Events are blocks in the **Events** section, on both the home page and the Events page. Each has:
 
-1. **Theme files:** each homepage section maps to a Shopify section (`sections/*.liquid`), and the shared header and footer become the `header` and `footer` sections in `layout/theme.liquid`. `css/heirloom.css` and `js/heirloom.js` move to the theme's `assets/` folder.
-2. **Products:** the item cards become a product loop over a Shopify collection. The card's image, name, description and price map to `product.featured_media`, `product.title`, a short description and `product.price`. The category (`data-kind`) maps to `product.type`, and the Shop page becomes the collection page.
-3. **Contact form:** Shopify's built-in `{% form 'contact' %}` replaces the placeholder form.
-4. **Editable settings:** colors, the motto and section text can be exposed as theme settings so they can be changed in the Shopify theme editor without touching code.
-5. **Previewing:** use the [Shopify CLI](https://shopify.dev/docs/storefronts/themes/tools/cli) (`shopify theme dev --store <store>.myshopify.com`) to preview the theme against the real store before publishing.
+- **Date** in year-month-day form, e.g. `2026-10-10` (shown as the Oct / 10 date box)
+- **Event name**
+- **Day, time & place**, e.g. `Saturday · 10:00 – 4:00 · Venue name, Omaha`
+- **Description**
 
-The original theme export (`heirloom-co-theme.zip`) is kept outside this repository and can be used as a starting point.
+Past events hide themselves automatically once their date has passed. The home page shows the next 3, and the Events page shows up to 20.
 
-## Git workflow
+> The home page and the Events page each have their own list of events, so add a new event to both.
 
-- `main`: stable version.
-- `static-site`: the static site work, pushed to GitHub. Merge it into `main` with a pull request when ready.
+### 7. Before launch
+
+- [ ] Replace the three sample events (made-up dates and "Venue name, Omaha").
+- [ ] Check the **What we carry** lists against what the shop actually carries.
+- [ ] Contact form: send a test message and confirm it arrives at the store's email (**Settings → Store details**).
+- [ ] Add the Instagram link and favicon.
+- [ ] Remove the store password (**Online Store → Preferences**) when ready to open.
+
+## Checking the theme
+
+```sh
+shopify theme check
+```
+
+Reports Liquid and schema problems. The only expected warnings are about Google Fonts loading from Google instead of Shopify's servers.
+
+## Keeping the two branches in step
+
+- **`main`**: plain HTML/CSS/JS site for editing and previewing locally.
+- **`shopify`**: this theme.
+
+The two share the same styles and design, but the page content is written differently: HTML files on `main`, and sections and templates here. When something changes on `main`:
+
+- **Styles:** copy the changes from `main`'s `css/heirloom.css` into `assets/heirloom.css`. Leave out the four color values at the top, since the theme sets those from theme settings.
+- **Wording:** update the matching section's defaults, the text in `templates/*.json`, or just edit it in the Shopify theme editor.
+- **New sections or pages:** add a section in `sections/` and include it in a template.

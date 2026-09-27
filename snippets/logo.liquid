@@ -1,0 +1,10 @@
+{%- comment -%}
+  The Heirloom Co. seal. Uses the logo from theme settings, or assets/logo.jpg if none is set.
+  Usage: {% render 'logo', class: 'logo hero-img', alt: 'Heirloom Co. seal' %}
+{%- endcomment -%}
+{%- assign cls = class | default: 'logo' -%}
+{%- if settings.logo -%}
+  {{ settings.logo | image_url: width: 900 | image_tag: class: cls, alt: alt, widths: '120, 450, 900' }}
+{%- else -%}
+  <img class="{{ cls }}" src="{{ 'logo.jpg' | asset_url }}" alt="{{ alt | escape }}" width="850" height="850">
+{%- endif -%}

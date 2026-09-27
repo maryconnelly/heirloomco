@@ -1,0 +1,37 @@
+<section class="hero">
+  <div class="wrap">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow caps">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h1>{{ section.settings.heading }}{% if section.settings.heading_accent != blank %} <em>{{ section.settings.heading_accent }}</em>{% endif %}</h1>
+      {%- if section.settings.text != blank -%}<p class="lede">{{ section.settings.text }}</p>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <div class="actions">
+          <a class="btn solid" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a>
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="seal">
+      {%- if section.settings.image -%}
+        {{ section.settings.image | image_url: width: 900 | image_tag: widths: '400, 600, 900', sizes: '(max-width: 860px) 260px, 420px', class: 'hero-img' }}
+      {%- else -%}
+        {% render 'logo', class: 'logo hero-img', alt: 'Heirloom Co. seal: Omaha, NE' %}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "Clothing & home goods · Omaha, NE" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Curated vintage & modern goods with" },
+    { "type": "text", "id": "heading_accent", "label": "Heading (green italic ending)", "default": "heirloom quality." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Clothing, accessories, and homegoods are chosen with care by their condition and character. Items are thoroughly cleaned and fairly priced, and new finds are added every week." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop new arrivals" },
+    { "type": "url", "id": "button_link", "label": "Button link", "info": "Defaults to all products." },
+    { "type": "image_picker", "id": "image", "label": "Image instead of logo", "info": "Optional. Leave blank to show the logo." }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

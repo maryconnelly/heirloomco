@@ -1,0 +1,12 @@
+{
+  "current": "Default",
+  "presets": {
+    "Default": {
+      "color_paper": "#F8F8F4",
+      "color_paper_2": "#EFEFE8",
+      "color_ink": "#1D1E1A",
+      "color_accent": "#56654A",
+      "enable_dark_mode": true
+    }
+  }
+}

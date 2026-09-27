@@ -1,0 +1,13 @@
+{%- comment -%}
+  Links from a Shopify menu, or the default site links if the menu is empty.
+  Usage: {% render 'nav-links', menu: section.settings.menu %}
+{%- endcomment -%}
+{%- if menu.links.size > 0 -%}
+  {%- for link in menu.links -%}
+    <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+  {%- endfor -%}
+{%- else -%}
+  <a href="{{ routes.all_products_collection_url }}">Shop</a>
+  <a href="/pages/events">Events &amp; Pop-ups</a>
+  <a href="/pages/contact">Contact</a>
+{%- endif -%}

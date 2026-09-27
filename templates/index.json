@@ -1,0 +1,108 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Clothing & home goods · Omaha, NE",
+        "heading": "Curated vintage & modern goods with",
+        "heading_accent": "heirloom quality.",
+        "text": "Clothing, accessories, and homegoods are chosen with care by their condition and character. Items are thoroughly cleaned and fairly priced, and new finds are added every week.",
+        "button_label": "Shop new arrivals"
+      }
+    },
+    "carry": {
+      "type": "carry",
+      "settings": {
+        "anchor": "carry",
+        "eyebrow": "What we carry",
+        "heading": "For your closet and your home.",
+        "text": "Every piece in our collection is chosen with sustainability in mind. We look for quality, pure-fiber fabrics and pieces in the condition to last for years to come."
+      },
+      "blocks": {
+        "clothing": {
+          "type": "column",
+          "settings": {
+            "title": "Clothing",
+            "note": "Styles for everyone.",
+            "items": "Outerwear | Wool, waxed canvas, leather\nDenim | Vintage & modern cuts\nKnitwear | Cotton, wool, cashmere\nDresses & skirts | Everyday to occasion\nBoots, bags & belts | Leather goods"
+          }
+        },
+        "home": {
+          "type": "column",
+          "settings": {
+            "title": "Home Goods",
+            "note": "Linens, decor and the small things that finish a room.",
+            "items": "Decor & vessels | Vases, baskets, candleholders\nLinens & blankets | Quilts, wool throws\nTableware | Stoneware, glassware, serving pieces\nArt & frames | Prints, originals, mirrors"
+          }
+        }
+      },
+      "block_order": [
+        "clothing",
+        "home"
+      ]
+    },
+    "new": {
+      "type": "new-arrivals",
+      "settings": {
+        "eyebrow": "New this week",
+        "heading": "Fresh finds, just added.",
+        "text": "A few favorites from this week's intake. Pieces are one of a kind, so once they're gone, they're gone.",
+        "products_to_show": 6,
+        "view_all_label": "See everything in the shop"
+      }
+    },
+    "events": {
+      "type": "events",
+      "settings": {
+        "anchor": "events",
+        "eyebrow": "Events & Pop-ups",
+        "heading": "Find us out and about.",
+        "text": "We bring a rack or two of our favorite finds to markets and pop-ups around Omaha. Come see them in person.",
+        "max_events": 3,
+        "hide_past": true,
+        "link_label": "See all events",
+        "link_url": "/pages/events"
+      },
+      "blocks": {
+        "e1": {
+          "type": "event",
+          "settings": {
+            "date": "2026-10-10",
+            "title": "Fall Vintage Market",
+            "details": "Saturday · 9:00 – 3:00 · Venue name, Omaha",
+            "text": "Outerwear, wool blankets and cozy knits, just in time for sweater weather."
+          }
+        },
+        "e2": {
+          "type": "event",
+          "settings": {
+            "date": "2026-11-07",
+            "title": "Pop-up at a local coffee shop",
+            "details": "Saturday · 10:00 – 2:00 · Venue name, Omaha",
+            "text": "A small, hand-picked rack of vintage and modern pieces. Come for a coffee and dig around."
+          }
+        },
+        "e3": {
+          "type": "event",
+          "settings": {
+            "date": "2026-12-05",
+            "title": "Holiday Makers & Vintage Fair",
+            "details": "Saturday · 10:00 – 4:00 · Venue name, Omaha",
+            "text": "Gift-worthy finds: decor, frames, leather goods and one-of-a-kind pieces."
+          }
+        }
+      },
+      "block_order": [
+        "e1",
+        "e2",
+        "e3"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "carry",
+    "new",
+    "events"
+  ]
+}

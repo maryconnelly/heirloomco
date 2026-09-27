@@ -1,0 +1,15 @@
+<article class="block first">
+  <div class="wrap narrow">
+    <span class="muted small">{{ article.published_at | date: '%B %-d, %Y' }}</span>
+    <h1 class="h2">{{ article.title }}</h1>
+    {%- if article.image -%}
+      {{ article.image | image_url: width: 1400 | image_tag: class: 'article-img', widths: '700, 1400', sizes: '(max-width: 760px) 92vw, 720px' }}
+    {%- endif -%}
+    <div class="rte">{{ article.content }}</div>
+    <p><a href="{{ blog.url }}">← Back to {{ blog.title }}</a></p>
+  </div>
+</article>
+
+{% schema %}
+{ "name": "Article", "settings": [] }
+{% endschema %}

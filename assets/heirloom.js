@@ -1,4 +1,4 @@
-/* Draws the leaf marks into empty SVGs, plus the shop filter and contact form. */
+/* Draws the leaf marks into empty SVGs and runs the shop category filter. */
 (function () {
   var NS = "http://www.w3.org/2000/svg";
   function el(tag, attrs, parent) {
@@ -48,28 +48,27 @@
       frond(s, 60, 38, 0.62, -14);
     });
   }
-  init();
 
   // Shop page: show only the items in the chosen category.
-  var filters = document.querySelectorAll("[data-filter]");
-  filters.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var kind = btn.getAttribute("data-filter");
-      filters.forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
-      document.querySelectorAll(".item[data-kind]").forEach(function (t) {
-        t.hidden = kind !== "all" && t.getAttribute("data-kind") !== kind;
+  function initFilters() {
+    var filters = document.querySelectorAll("[data-filter]:not([data-bound])");
+    filters.forEach(function (btn) {
+      btn.setAttribute("data-bound", "");
+      btn.addEventListener("click", function () {
+        var kind = btn.getAttribute("data-filter");
+        var group = btn.closest("[data-filters]");
+        group.querySelectorAll("[data-filter]").forEach(function (b) {
+          b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+        });
+        document.querySelectorAll(".item[data-kind]").forEach(function (t) {
+          t.hidden = kind !== "all" && t.getAttribute("data-kind") !== kind;
+        });
       });
     });
-  });
-
-  // Contact page: the form isn't hooked up to send yet, so say so instead of failing silently.
-  var form = document.querySelector("form[data-contact]");
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var status = form.querySelector(".form-status");
-      status.textContent = "Thanks! This form isn't connected yet, so your message wasn't sent.";
-      status.hidden = false;
-    });
   }
+
+  init();
+  initFilters();
+  // Redraw after edits in the Shopify theme editor.
+  document.addEventListener("shopify:section:load", function () { init(); initFilters(); });
 })();

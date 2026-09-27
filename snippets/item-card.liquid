@@ -1,0 +1,27 @@
+{%- comment -%}
+  A product shown as a card: photo, category, name, short description and price.
+  Usage: {% render 'item-card', product: product %}
+{%- endcomment -%}
+{%- assign kind = product.type | default: 'Found' -%}
+<article class="item{% unless product.available %} is-sold{% endunless %}" data-kind="{{ kind | handleize }}">
+  <a class="item-link" href="{{ product.url }}">
+    <div class="item-img">
+      {%- if product.featured_media -%}
+        {%- assign alt = product.featured_media.alt | default: product.title -%}
+        {{ product.featured_media | image_url: width: 700 | image_tag: loading: 'lazy', widths: '350, 500, 700', sizes: '(max-width: 600px) 90vw, 280px', alt: alt }}
+      {%- else -%}
+        <span class="caps">Photo</span>
+      {%- endif -%}
+    </div>
+    <span class="caps kind">{{ kind }}</span>
+    <h3 class="name">{{ product.title }}</h3>
+    {%- if product.description != blank -%}
+      <p class="meta">{{ product.description | strip_html | truncatewords: 12 }}</p>
+    {%- endif -%}
+    <p class="price">
+      {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money_without_trailing_zeros }}</s>{%- endif -%}
+      {{ product.price | money_without_trailing_zeros }}
+      {%- unless product.available %} · Sold{% endunless -%}
+    </p>
+  </a>
+</article>

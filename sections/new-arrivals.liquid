@@ -1,0 +1,42 @@
+<section class="block racks" id="new">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="caps">{{ section.settings.eyebrow }}</span>
+        <h2>{{ section.settings.heading }}</h2>
+      </div>
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="items">
+      {%- assign coll = section.settings.collection -%}
+      {%- if coll != blank and coll.products_count > 0 -%}
+        {%- for product in coll.products limit: section.settings.products_to_show -%}
+          {% render 'item-card', product: product %}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..section.settings.products_to_show) -%}
+          {%- assign odd = forloop.index | modulo: 2 -%}
+          {%- if odd == 1 -%}{% render 'item-card-placeholder', kind: 'Clothing' %}{%- else -%}{% render 'item-card-placeholder', kind: 'Home' %}{%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+    {%- if section.settings.view_all_label != blank -%}
+      <p class="foot"><a href="{{ coll.url | default: routes.all_products_collection_url }}">{{ section.settings.view_all_label }}</a></p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "New arrivals",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "New this week" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Fresh finds, just added." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "A few favorites from this week's intake. Pieces are one of a kind, so once they're gone, they're gone." },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Until you pick one with products, placeholder cards are shown." },
+    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 2, "max": 12, "step": 1, "default": 6 },
+    { "type": "text", "id": "view_all_label", "label": "View all link label", "default": "See everything in the shop" }
+  ],
+  "presets": [{ "name": "New arrivals" }]
+}
+{% endschema %}
