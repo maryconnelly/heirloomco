@@ -151,9 +151,11 @@ The site began as a Shopify Online Store 2.0 theme and was turned into static pa
 4. **Editable settings:** colors, the motto and section text can be exposed as theme settings so they can be changed in the Shopify theme editor without touching code.
 5. **Previewing:** use the [Shopify CLI](https://shopify.dev/docs/storefronts/themes/tools/cli) (`shopify theme dev --store <store>.myshopify.com`) to preview the theme against the real store before publishing.
 
-The original theme export (`heirloom-co-theme.zip`) is kept outside this repository and can be used as a starting point.
+This conversion has been done on the **`shopify`** branch; its README covers setting up the store.
 
 ## Git workflow
 
-- `main`: stable version.
-- `static-site`: the static site work, pushed to GitHub. Merge it into `main` with a pull request when ready.
+- **`main`**: this plain HTML/CSS/JS site. Make and preview changes here.
+- **`shopify`**: the same site packaged as a Shopify theme, with setup steps for the store in that branch's README. When changes on `main` are ready for the store, carry them over to the `shopify` branch.
+
+Switch between them with `git checkout main` or `git checkout shopify`.
