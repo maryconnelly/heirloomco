@@ -10,7 +10,7 @@
     <div class="carry">
       {%- for block in section.blocks -%}
         <div {{ block.shopify_attributes }}>
-          <h3><svg viewBox="0 0 120 70" aria-hidden="true" data-leaf></svg>{{ block.settings.title }}</h3>
+          <h3><img class="logo carry-leaf" src="{{ 'leaf.jpg' | asset_url }}" alt="" width="244" height="290" loading="lazy">{{ block.settings.title }}</h3>
           {%- if block.settings.note != blank -%}<p class="note">{{ block.settings.note }}</p>{%- endif -%}
           <ul>
             {%- assign lines = block.settings.items | newline_to_br | split: '<br />' -%}

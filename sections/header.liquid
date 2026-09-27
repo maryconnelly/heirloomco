@@ -14,9 +14,15 @@
   </div>
 </header>
 
+{% stylesheet %}
+  /* Shopify wraps each section in its own div, so the wrapper is what has to stick. */
+  .header-wrapper { position: sticky; top: 0; z-index: 10; }
+{% endstylesheet %}
+
 {% schema %}
 {
   "name": "Header",
+  "class": "header-wrapper",
   "settings": [
     { "type": "text", "id": "announcement", "label": "Announcement bar", "info": "Leave blank to hide." },
     { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu", "info": "If the menu is empty, links to Shop, Events & Pop-ups and Contact are shown." }

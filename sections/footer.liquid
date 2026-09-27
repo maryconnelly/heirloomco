@@ -2,21 +2,35 @@
   <div class="wrap">
     {% render 'logo', class: 'logo foot-logo', alt: '' %}
     <div class="foot-links">
-      {% render 'nav-links', menu: section.settings.menu %}
+      {%- for link in section.settings.menu.links -%}
+        {%- comment -%} The privacy link is shown on its own at the far right instead. {%- endcomment -%}
+        {%- unless link.url contains 'privacy' -%}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {%- endunless -%}
+      {%- endfor -%}
       {%- if settings.instagram_url != blank -%}
         <a href="{{ settings.instagram_url }}" target="_blank" rel="noopener">Instagram</a>
       {%- endif -%}
     </div>
     <p>© {{ 'now' | date: '%Y' }} {{ shop.name }} · {{ section.settings.tagline }}</p>
+    {%- if shop.privacy_policy -%}
+      <a class="foot-privacy" href="{{ shop.privacy_policy.url }}">{{ section.settings.privacy_label }}</a>
+    {%- endif -%}
   </div>
 </footer>
+
+{% stylesheet %}
+  .foot-privacy { margin-left: auto; text-decoration: none; color: var(--ink-soft); font-size: 0.9rem; }
+  .foot-privacy:hover { color: var(--sage); }
+{% endstylesheet %}
 
 {% schema %}
 {
   "name": "Footer",
   "settings": [
-    { "type": "link_list", "id": "menu", "label": "Footer menu", "default": "footer" },
-    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Curated vintage & modern goods with heirloom quality · Omaha, Nebraska" }
+    { "type": "link_list", "id": "menu", "label": "Footer menu", "default": "footer", "info": "Optional. Leave empty to show no extra links; the main menu is already in the header." },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Omaha, NE" },
+    { "type": "text", "id": "privacy_label", "label": "Privacy link label", "default": "Privacy policy", "info": "Links to the privacy policy set in Settings → Policies." }
   ]
 }
 {% endschema %}
