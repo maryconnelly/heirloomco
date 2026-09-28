@@ -262,7 +262,7 @@ select, input[type="search"], input[type="email"], input[type="password"], input
 .page-head .caps { color: var(--sage); display: block; margin-bottom: 16px; }
 .page-head h1 {
   font-family: var(--f-display); font-weight: 300;
-  font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.06; letter-spacing: -0.015em; margin: 0 0 20px;
+  font-size: clamp(2rem, 3.8vw, 3.2rem); line-height: 1.1; letter-spacing: -0.01em; margin: 0 0 20px;
 }
 .page-head h1 em { font-style: italic; color: var(--sage); }
 .page-head .lede { font-size: 1.12rem; color: var(--ink-soft); max-width: 36em; margin: 0; }

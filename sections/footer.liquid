@@ -8,11 +8,18 @@
           <a href="{{ link.url }}">{{ link.title }}</a>
         {%- endunless -%}
       {%- endfor -%}
-      {%- if settings.instagram_url != blank -%}
-        <a href="{{ settings.instagram_url }}" target="_blank" rel="noopener">Instagram</a>
-      {%- endif -%}
     </div>
     <p>© {{ 'now' | date: '%Y' }} {{ shop.name }} · {{ section.settings.tagline }}</p>
+    {%- if settings.instagram_url != blank -%}
+      <a class="foot-social" href="{{ settings.instagram_url }}" target="_blank" rel="noopener" aria-label="Follow us on Instagram">
+        <span aria-hidden="true">Follow us:</span>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+    {%- endif -%}
     {%- if shop.privacy_policy -%}
       <a class="foot-privacy" href="{{ shop.privacy_policy.url }}">{{ section.settings.privacy_label }}</a>
     {%- endif -%}
@@ -20,8 +27,15 @@
 </footer>
 
 {% stylesheet %}
-  .foot-privacy { margin-left: auto; text-decoration: none; color: var(--ink-soft); font-size: 0.9rem; }
-  .foot-privacy:hover { color: var(--sage); }
+  /* Footer links sit light gray and turn the accent green on hover. */
+  footer.site { --foot-link: color-mix(in srgb, var(--ink) 48%, var(--paper)); }
+  .foot-links a, .foot-social, .foot-privacy { color: var(--foot-link); text-decoration: none; transition: color .2s; }
+  .foot-links a:hover, .foot-social:hover, .foot-privacy:hover { color: var(--sage); }
+  .foot-privacy { margin-left: auto; font-size: 0.9rem; }
+  /* The Instagram icon sits centered between the © line and the privacy link. */
+  .foot-social { display: inline-flex; align-items: center; gap: 8px; margin-inline: auto; font-size: 0.9rem; }
+  .foot-social + .foot-privacy { margin-left: 0; }
+  .foot-social svg { display: block; }
 {% endstylesheet %}
 
 {% schema %}
