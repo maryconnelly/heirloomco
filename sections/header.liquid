@@ -7,17 +7,89 @@
       {% render 'logo', class: 'logo brand-img', alt: '' %}
       <span>{{ shop.name }}</span>
     </a>
-    <nav class="links" aria-label="Main">
+    <nav class="links" id="MainNav" aria-label="Main">
       {% render 'nav-links', menu: section.settings.menu %}
-      <a href="{{ routes.cart_url }}" class="cart-link">Bag{% if cart.item_count > 0 %} <span class="count">{{ cart.item_count }}</span>{% endif %}</a>
     </nav>
+    <div class="header-actions">
+      <a href="{{ routes.cart_url }}" class="cart-link">Cart{% if cart.item_count > 0 %} <span class="count">{{ cart.item_count }}</span>{% endif %}</a>
+      <button class="menu-toggle" type="button" aria-controls="MainNav" aria-expanded="false" aria-label="Menu" data-menu-toggle>
+        <svg class="icon-open" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+        <svg class="icon-close" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18"/>
+        </svg>
+      </button>
+    </div>
   </div>
 </header>
 
 {% stylesheet %}
   /* Shopify wraps each section in its own div, so the wrapper is what has to stick. */
   .header-wrapper { position: sticky; top: 0; z-index: 10; }
+
+  header.site nav.links { margin-left: auto; }
+  .header-actions { display: flex; align-items: center; gap: 16px; }
+  .header-actions .cart-link { text-decoration: none; }
+  .header-actions .cart-link:hover { color: var(--sage); }
+  .menu-toggle {
+    display: none; align-items: center; justify-content: center;
+    width: 40px; height: 40px; margin-right: -8px; padding: 0;
+    background: none; border: 0; color: var(--ink); cursor: pointer;
+  }
+  .menu-toggle:hover { color: var(--sage); }
+  .menu-toggle .icon-close { display: none; }
+
+  /* Phones and small tablets: the menu folds into the menu icon. */
+  @media (max-width: 760px) {
+    .menu-toggle { display: inline-flex; }
+    header.site nav.links {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 0; margin: 0;
+      padding: 8px var(--gutter) 16px;
+      background: var(--paper); border-bottom: 1px solid var(--rule);
+      box-shadow: 0 12px 24px -16px color-mix(in srgb, var(--ink) 40%, transparent);
+    }
+    header.site nav.links a {
+      padding-block: 14px; border-bottom: 1px solid var(--rule);
+      font-family: var(--f-display); font-size: 1.25rem;
+    }
+    header.site nav.links a:last-child { border-bottom: 0; }
+    header.site.is-open nav.links { display: flex; }
+    header.site.is-open .icon-open { display: none; }
+    header.site.is-open .icon-close { display: block; }
+  }
 {% endstylesheet %}
+
+{% javascript %}
+  (function () {
+    function bind() {
+      document.querySelectorAll("[data-menu-toggle]:not([data-bound])").forEach(function (btn) {
+        btn.setAttribute("data-bound", "");
+        var header = btn.closest("header");
+        function setOpen(open) {
+          header.classList.toggle("is-open", open);
+          btn.setAttribute("aria-expanded", open ? "true" : "false");
+        }
+        btn.addEventListener("click", function () {
+          setOpen(!header.classList.contains("is-open"));
+        });
+        // Close after picking a link, on Escape, or when tapping outside the menu.
+        header.querySelectorAll("nav.links a").forEach(function (a) {
+          a.addEventListener("click", function () { setOpen(false); });
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && header.classList.contains("is-open")) { setOpen(false); btn.focus(); }
+        });
+        document.addEventListener("click", function (e) {
+          if (!header.contains(e.target)) setOpen(false);
+        });
+      });
+    }
+    bind();
+    document.addEventListener("shopify:section:load", bind);
+  })();
+{% endjavascript %}
 
 {% schema %}
 {

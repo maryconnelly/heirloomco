@@ -62,7 +62,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 h1, h2, h3 { text-wrap: balance; }
 .h2, .sec-head h2 {
   font-family: var(--f-display); font-weight: 300;
-  font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; margin: 0 0 16px;
+  font-size: clamp(1.7rem, 3vw, 2.5rem); line-height: 1.1; margin: 0 0 16px;
 }
 
 .draft {
@@ -111,7 +111,7 @@ nav.links a:hover, nav.links a[aria-current] { color: var(--sage); }
 .hero .eyebrow { color: var(--sage); margin: 0 0 20px; }
 .hero h1 {
   font-family: var(--f-display); font-weight: 300;
-  font-size: clamp(2rem, 3.8vw, 3.2rem); line-height: 1.1; letter-spacing: -0.01em;
+  font-size: clamp(1.7rem, 3vw, 2.5rem); line-height: 1.1; letter-spacing: -0.01em;
   margin: 0 0 24px;
 }
 .hero h1 em { font-style: italic; color: var(--sage); }
@@ -262,7 +262,7 @@ select, input[type="search"], input[type="email"], input[type="password"], input
 .page-head .caps { color: var(--sage); display: block; margin-bottom: 16px; }
 .page-head h1 {
   font-family: var(--f-display); font-weight: 300;
-  font-size: clamp(2rem, 3.8vw, 3.2rem); line-height: 1.1; letter-spacing: -0.01em; margin: 0 0 20px;
+  font-size: clamp(1.7rem, 3vw, 2.5rem); line-height: 1.1; letter-spacing: -0.01em; margin: 0 0 20px;
 }
 .page-head h1 em { font-style: italic; color: var(--sage); }
 .page-head .lede { font-size: 1.12rem; color: var(--ink-soft); max-width: 36em; margin: 0; }

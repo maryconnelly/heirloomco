@@ -40,7 +40,7 @@
       {%- endif -%}
       <input type="hidden" name="quantity" value="1">
       {%- if product.available -%}
-        <button type="submit" class="btn solid">Add to bag</button>
+        <button type="submit" class="btn solid">Add to cart</button>
       {%- else -%}
         <button type="button" class="btn line" disabled>Sold</button>
       {%- endif -%}
@@ -56,7 +56,7 @@
 {
   "name": "Product",
   "settings": [
-    { "type": "text", "id": "note", "label": "Note under the button", "default": "Every piece is one of a kind. Once it's in someone's bag, it's gone." }
+    { "type": "text", "id": "note", "label": "Note under the button", "default": "Every piece is one of a kind. Once it's in someone's cart, it's gone." }
   ]
 }
 {% endschema %}
