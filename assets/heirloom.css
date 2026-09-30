@@ -9,7 +9,6 @@
   --f-caps: "Marcellus", "Cormorant SC", Georgia, serif;
   --f-display: "Newsreader", Georgia, "Times New Roman", serif;
   --f-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --f-hand: "Nanum Pen Script", "Bradley Hand", "Segoe Print", cursive;
 
   --gutter: clamp(16px, 4vw, 48px);
   --max: 1160px;
@@ -211,8 +210,8 @@ nav.links a:hover, nav.links a[aria-current] { color: var(--sage); }
 .product-info { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 16px; }
 .product-info .kind { color: var(--sage); }
 .product-info h1 { font-family: var(--f-display); font-weight: 300; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; margin: 0; }
-.price-tag { font-family: var(--f-hand); font-size: 2.8rem; line-height: 1; display: flex; gap: 12px; align-items: baseline; }
-.price-tag s { font-size: 1.8rem; color: var(--ink-soft); }
+.price-tag { font-family: var(--f-display); font-weight: 400; font-size: 1.9rem; line-height: 1; display: flex; gap: 12px; align-items: baseline; }
+.price-tag s { font-size: 1.3rem; color: var(--ink-soft); }
 .buy { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
 select, input[type="search"], input[type="email"], input[type="password"], input[type="number"] {
   font: inherit; color: var(--ink); background: var(--paper);
