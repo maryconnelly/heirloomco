@@ -62,6 +62,27 @@
     });
   });
 
+  // Phones: the menu icon opens and closes the menu. It also closes after picking
+  // a link, on Escape, or when tapping outside the menu.
+  var menuBtn = document.querySelector("[data-menu-toggle]");
+  if (menuBtn) {
+    var header = menuBtn.closest("header");
+    var setOpen = function (open) {
+      header.classList.toggle("is-open", open);
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+    menuBtn.addEventListener("click", function () { setOpen(!header.classList.contains("is-open")); });
+    header.querySelectorAll("nav.links a").forEach(function (a) {
+      a.addEventListener("click", function () { setOpen(false); });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && header.classList.contains("is-open")) { setOpen(false); menuBtn.focus(); }
+    });
+    document.addEventListener("click", function (e) {
+      if (!header.contains(e.target)) setOpen(false);
+    });
+  }
+
   // Contact page: the form isn't hooked up to send yet, so say so instead of failing silently.
   var form = document.querySelector("form[data-contact]");
   if (form) {

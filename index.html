@@ -7,7 +7,7 @@
   <meta name="description" content="Heirloom Co. is a small Omaha shop for pre-loved clothing, accessories and everyday home goods. Hand-picked, cleaned and fairly priced, with new stock every week.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Figtree:wght@400;500;600&family=Nanum+Pen+Script&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Figtree:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="css/heirloom.css">
 </head>
 <body class="template-index">
@@ -19,11 +19,29 @@
         <img class="logo brand-img" src="images/logo.jpg" alt="" width="850" height="850">
         <span>Heirloom Co.</span>
       </a>
-      <nav class="links" aria-label="Main">
+      <nav class="links" id="MainNav" aria-label="Main">
         <a href="shop.html">Shop</a>
         <a href="events.html">Events &amp; Pop-ups</a>
         <a href="contact.html">Contact</a>
       </nav>
+      <div class="header-actions">
+        <!-- The cart only works on Shopify; here the icon is just for the design. -->
+        <a href="#" class="cart-link" aria-label="Cart">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2.5 4h2.4l2.2 10.3a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L20.8 8H5.7"/>
+            <circle cx="9.5" cy="19.6" r="1.3"/>
+            <circle cx="17" cy="19.6" r="1.3"/>
+          </svg>
+        </a>
+        <button class="menu-toggle" type="button" aria-controls="MainNav" aria-expanded="false" aria-label="Menu" data-menu-toggle>
+          <svg class="icon-open" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+          <svg class="icon-close" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18"/>
+          </svg>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -55,7 +73,7 @@
         </div>
         <div class="carry">
           <div>
-            <h3><svg viewBox="0 0 120 70" aria-hidden="true" data-leaf></svg>Clothing</h3>
+            <h3><img class="logo carry-leaf" src="images/leaf.jpg" alt="" width="244" height="290" loading="lazy">Clothing</h3>
             <p class="note">Styles for everyone.</p>
             <ul>
               <li>Outerwear <span>Wool, waxed canvas, leather</span></li>
@@ -66,7 +84,7 @@
             </ul>
           </div>
           <div>
-            <h3><svg viewBox="0 0 120 70" aria-hidden="true" data-leaf></svg>Home Goods</h3>
+            <h3><img class="logo carry-leaf" src="images/leaf.jpg" alt="" width="244" height="290" loading="lazy">Home Goods</h3>
             <p class="note">Linens, decor and the small things that finish a room.</p>
             <ul>
               <li>Decor &amp; vessels <span>Vases, baskets, candleholders</span></li>
@@ -180,12 +198,17 @@
   <footer class="site">
     <div class="wrap">
       <img class="logo foot-logo" src="images/logo.jpg" alt="" width="850" height="850">
-      <div class="foot-links">
-        <a href="shop.html">Shop</a>
-        <a href="events.html">Events &amp; Pop-ups</a>
-        <a href="contact.html">Contact</a>
-      </div>
-      <p>© 2026 Heirloom Co. · Curated vintage &amp; modern goods with heirloom quality · Omaha, Nebraska</p>
+      <p>© 2026 Heirloom Co. · Omaha, NE</p>
+      <!-- Replace # with the shop's Instagram and privacy policy links. -->
+      <a class="foot-social" href="#" target="_blank" rel="noopener" aria-label="Follow us on Instagram">
+        <span aria-hidden="true">Follow us:</span>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a class="foot-privacy" href="#">Privacy policy</a>
     </div>
   </footer>
 

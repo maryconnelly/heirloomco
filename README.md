@@ -30,9 +30,10 @@ heirloomco/
 ├── css/
 │   └── heirloom.css  All styles for every page
 ├── js/
-│   └── heirloom.js   Leaf icons, shop filter, contact form message
+│   └── heirloom.js   Mobile menu, shop filter, contact form message
 ├── images/
-│   └── logo.jpg      Heirloom Co. seal logo
+│   ├── logo.jpg      Heirloom Co. seal logo
+│   └── leaf.jpg      Leaf cut from the logo (What we carry headings)
 ├── .gitignore
 └── README.md
 ```
@@ -137,7 +138,7 @@ Placeholder content that needs real information before launch:
 - [ ] **Events:** the three events on the Events page and homepage are samples with made-up dates and "Venue name, Omaha".
 - [ ] **What we carry lists:** the Home Goods rows (Decor & vessels, Tableware and their examples) were drafted and should be checked against what the shop actually carries.
 - [ ] **Contact form:** it isn't connected to anything yet. Submitting shows a message saying the form isn't connected. It will be wired up during the Shopify move, or through a form service in the meantime.
-- [ ] **Instagram / social links:** none yet.
+- [ ] **Instagram and privacy links:** the footer and Contact page use `#` placeholders.
 - [ ] **Favicon** (browser tab icon).
 - [ ] **Spelling consistency:** "homegoods" in the homepage paragraph vs. "Home Goods" elsewhere.
 
